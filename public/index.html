@@ -1,0 +1,37 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link href="styles.css" rel="stylesheet" type="text/css">
+  <title>Garage Door</title>
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <button class="button" id="left">Open Left</button>
+    <button class="button" id="right">Open Right</button>
+  </div>
+
+  <script>
+    document.querySelector('#left').addEventListener('click', function () {
+      $.ajax({
+        method: 'POST',
+        url: '/api/left',
+        error: error
+      });
+    });
+
+    document.querySelector('#right').addEventListener('click', function () {
+      $.ajax({
+        method: 'POST',
+        url: '/api/right',
+        error: error
+      });
+    });
+
+    function error(req, textStatus, errorThrown) {
+      alert('Error: ' + errorThrown);
+    }
+  </script>
+</body>
+</html>

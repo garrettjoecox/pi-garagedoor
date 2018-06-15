@@ -1,0 +1,28 @@
+{
+  "name": "pi-garagedoor",
+  "version": "0.0.1",
+  "description": "Garage door opener with web client for Rasberry Pi",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Garrett Cox <garrettjcox@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garrettjoecox/pi-garagedoor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/garrettjoecox/pi-garagedoor/issues"
+  },
+  "homepage": "https://github.com/garrettjoecox/pi-garagedoor#readme",
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-basic-auth": "^3.0.0",
+    "koa-mount": "^3.0.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.3",
+    "onoff": "^3.1.0",
+    "rc": "^1.2.8"
+  }
+}
