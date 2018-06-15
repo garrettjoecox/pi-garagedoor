@@ -13,10 +13,24 @@
   </div>
 
   <script>
+    var token = localStorage.getItem('token');
+
+    if (!token) {
+      $.ajax({
+        method: 'GET',
+        url: '/api/token',
+        error: error,
+        success(body) {
+          token = body.token;
+          localStorage.setItem('token', token);
+        }
+      });
+    }
+
     document.querySelector('#left').addEventListener('click', function () {
       $.ajax({
         method: 'POST',
-        url: '/api/left',
+        url: '/api/left?token=' + token,
         error: error
       });
     });
@@ -24,7 +38,7 @@
     document.querySelector('#right').addEventListener('click', function () {
       $.ajax({
         method: 'POST',
-        url: '/api/right',
+        url: '/api/right?token=' + token,
         error: error
       });
     });
