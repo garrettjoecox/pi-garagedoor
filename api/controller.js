@@ -16,16 +16,16 @@ module.exports = {
     ctx.body = { token: rc.token };
   },
   async left(ctx) {
-    await promisify(leftOuput.write)(Gpio.LOW);
+    await write(leftOuput, Gpio.LOW);
     await wait(500);
-    await promisify(leftOuput.write)(Gpio.HIGH);
+    await write(leftOuput, Gpio.HIGH);
 
     ctx.status = 200;
   },
   async right(ctx) {
-    await promisify(rightOutput.write)(Gpio.LOW);
+    await write(rightOutput, Gpio.LOW);
     await wait(500);
-    await promisify(rightOutput.write)(Gpio.HIGH);
+    await write(rightOutput, Gpio.HIGH);
 
     ctx.status = 200;
   }
@@ -34,5 +34,11 @@ module.exports = {
 function wait(ms) {
   return new Promise((resolve) => {
     setTimeout(() => resolve(), ms);
+  });
+}
+
+function write(output, value) {
+  return new Promise((resolve) => {
+    output.write(value, () => resolve());
   });
 }
