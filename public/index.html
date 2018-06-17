@@ -7,7 +7,10 @@
   <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 </head>
 <body>
-  <div class="container">
+  <div class="webcamContainer">
+    <div class="webcam"></div>
+  </div>
+  <div class="buttonContainer">
     <button class="button" id="left">Open Left</button>
     <button class="button" id="right">Open Right</button>
   </div>
@@ -46,6 +49,41 @@
     function error(req, textStatus, errorThrown) {
       alert('Error: ' + errorThrown);
     }
+  </script>
+  <script type="text/javascript">
+  var imageNr = 0; // Serial number of current image
+  var finished = new Array(); // References to img objects which have finished downloading
+  var paused = false;
+  var path = location.protocol + '//' + location.hostname + ':8080';
+
+  function createImageLayer() {
+    var img = new Image();
+    img.style.position = "absolute";
+    img.style.zIndex = -1;
+    img.onload = imageOnload;
+    img.onclick = imageOnclick;
+    img.src = path + "/?action=snapshot&n=" + (++imageNr);
+    var webcam = document.querySelector('.webcam');
+    webcam.insertBefore(img, webcam.firstChild);
+  }
+
+  // Two layers are always present (except at the very beginning), to avoid flicker
+  function imageOnload() {
+    this.style.zIndex = imageNr; // Image finished, bring to front!
+    while (1 < finished.length) {
+      var del = finished.shift(); // Delete old image(s) from document
+      del.parentNode.removeChild(del);
+    }
+    finished.push(this);
+    if (!paused) createImageLayer();
+  }
+
+  function imageOnclick() { // Clicking on the image will pause the stream
+    paused = !paused;
+    if (!paused) createImageLayer();
+  }
+
+  document.addEventListener('DOMContentLoaded', (event) => createImageLayer());
   </script>
 </body>
 </html>

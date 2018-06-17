@@ -8,12 +8,42 @@ body {
 	min-height: 100vh;
 	overflow: hidden;
 	display: flex;
+	flex-direction: column;
 	text-rendering: geometricPrecision;
 	font-family: sans-serif;
 }
 
-.container {
+.webcamContainer {
+	flex: 0 0 50vh;
+	display: flex;
+	padding: 0.5rem;
+	padding-bottom: 0;
+	justify-content: center;
+}
+
+.webcam {
 	flex: 1;
+	position: relative;
+	margin: 0.5rem;
+	margin-bottom: 0;
+	box-shadow: 0 0 11px 0 rgba(0,0,0,0.5);
+	max-height: calc(50vh - 0.5rem);
+	min-height: calc(50vh - 0.5rem);
+	max-width: calc(50vh * 1.31);
+	min-width: calc(50vh * 1.31);
+}
+
+.webcam img {
+	position: absolute;
+	max-height: calc(50vh - 0.5rem);
+	min-height: calc(50vh - 0.5rem);
+	max-width: calc(50vh * 1.31);
+	min-width: calc(50vh * 1.31);
+}
+
+.buttonContainer {
+	padding: 0.5rem;
+	flex: 0 0 50vh;
 	overflow: scroll;
 	display: flex;
 	flex-direction: row;
@@ -22,7 +52,7 @@ body {
 
 .button {
 	flex: 1;
-	margin: 1rem;
+	margin: 0.5rem;
 	padding: 20vh 0;
 	border: 0;
 	font-size: 2rem;
